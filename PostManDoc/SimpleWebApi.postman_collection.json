@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "9e4e8bc9-2767-4914-b557-edd5f9af6299",
+		"name": "SimpleWebApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://simplehappybuydemo.herokuapp.com/Coupon/GetCouponStatus",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"status\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://simplehappybuydemo.herokuapp.com/Coupon/GetCouponStatus",
+					"protocol": "http",
+					"host": [
+						"simplehappybuydemo",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"Coupon",
+						"GetCouponStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://simplehappybuydemo.herokuapp.com/Shop/SearchShop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"queryTag\": \"D\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://simplehappybuydemo.herokuapp.com/Shop/SearchShop",
+					"protocol": "http",
+					"host": [
+						"simplehappybuydemo",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"Shop",
+						"SearchShop"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
