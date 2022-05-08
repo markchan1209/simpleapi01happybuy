@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"status\": 0\n}",
+					"raw": "{\n  \"status\": 0,\n  \"page\":2,\n  \"pagesize\":10\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"queryTag\": \"D\"\n}",
+					"raw": "{\n  \"queryTag\": \"a\",\n  \"page\":1,\n  \"pagesize\":10\n}",
 					"options": {
 						"raw": {
 							"language": "json"
