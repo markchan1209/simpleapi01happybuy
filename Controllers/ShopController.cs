@@ -14,11 +14,11 @@ public class ShopController : ControllerBase
 {
     private readonly ILogger<ShopController> _logger;
 
-    private readonly ApplicationDbContext _context; 
+    private readonly ApplicationDbContext _context;
 
-     public readonly IMapper _mapper;
+    public readonly IMapper _mapper;
 
-    public ShopController(ILogger<ShopController> logger ,ApplicationDbContext context, IMapper mapper) 
+    public ShopController(ILogger<ShopController> logger, ApplicationDbContext context, IMapper mapper)
     {
         _logger = logger;
         _context = context;
@@ -31,21 +31,28 @@ public class ShopController : ControllerBase
     /// <param name="input">QueryTag = 搜尋名稱</param>
     /// <returns></returns>
     [HttpPost("SearchShop")]
-    public  async Task<List<SeachShopViewModel>> SearchShop(SeachShopViewInput input)
+    public async Task<SeachShopViewModel> SearchShop(SeachShopViewInput input)
     {
-        var data = await _context.Shops.Where(x => x.shopName.Contains(input.QueryTag)).AsNoTracking().ToListAsync();
-        return _mapper.Map<List<SeachShopViewModel>>(data);
+        int Page = input.page;
+        int PageSize = input.pageSize;
+        int Skipindex = Page * PageSize;
+        int Takeindex = PageSize;
+        // 自架資料庫不夠大.. 只好用GenFu套件先產生一些資料
+        A.Default().ListCount(200);
+        var data = A.ListOf<Shop>(200).Where(x => x.shopName.Contains(input.QueryTag));
+
+        //var data = await _context.Shops.Where(x => x.shopName.Contains(input.QueryTag)).AsNoTracking().ToListAsync();
+        int TotalCount = data.Count();
+        var result = data.Skip(Skipindex).Take(Takeindex);
+
+        SeachShopViewModel model = new SeachShopViewModel()
+        {
+            TotalCount = TotalCount,
+            datas = _mapper.Map<List<SeachShopDetailViewModel>>(result)
+        };
+
+        return model;
     }
 
-    // [HttpGet("SearchShopSeed")]
-    // public void SearchShopSeed()
-    // {
-    //     var data = A.ListOf<Shop>().Take(10);
-    //     foreach(var item in data)
-    //     {
-    //         _context.Shops.Add(item);
-    //         _context.SaveChanges();
-    //     }
-        
-    // }
+    
 }

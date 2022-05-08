@@ -2,6 +2,13 @@ namespace SimpleWebApi.Models
 {
     public class SeachShopViewModel
     {
+        public int TotalCount { get; set; }
+
+        public  List<SeachShopDetailViewModel> datas { get; set; }
+        
+    }
+    public class SeachShopDetailViewModel
+    {
         public int Id { get; set; }
 
         public string shopName { get; set; }

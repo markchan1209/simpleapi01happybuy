@@ -28,22 +28,28 @@ public class CouponController : ControllerBase
     /// <param name="input">status 0 (領取中) 1 (處理中) 2 (領取完成)</param>
     /// <returns></returns>
     [HttpPost("GetCouponStatus")]
-    public async Task<List<GetCouponStatusViewModel>> GetCouponStatus(GetCouponStatusViewInput input)
+    public async Task<GetCouponStatusViewModel> GetCouponStatus(GetCouponStatusViewInput input)
     {
-        var data = await _context.Coupons.Where(x => x.status == input.status).AsNoTracking().ToListAsync();
+        int Page = input.page;
+        int PageSize = input.pageSize;
+        int Skipindex = Page * PageSize;
+        int Takeindex = PageSize;
+        // 自架資料庫不夠大.. 只好用GenFu套件先產生一些資料
+        A.Default().ListCount(200);
+        var data = A.ListOf<Coupon>(200).Where(x => x.status == input.status);
+        //var data = await _context.Coupons.Where(x => x.status == input.status).AsNoTracking().ToListAsync();
+         
+        int TotalCount = data.Count();
+        var result = data.Skip(Skipindex).Take(Takeindex);
 
-        return _mapper.Map<List<GetCouponStatusViewModel>>(data);
+        GetCouponStatusViewModel model = new GetCouponStatusViewModel()
+        {
+            TotalCount = TotalCount,
+            datas = _mapper.Map<List<GetCouponStatusDetailViewModel>>(result)
+        };
+
+        return model;
     }
 
-    // [HttpGet("CouponSeed")]
-    // public void CouponSeed()
-    // {
-    //     var data = A.ListOf<Coupon>().Take(10);
-    //     foreach(var item in data)
-    //     {
-    //         _context.Coupons.Add(item);
-    //         _context.SaveChanges();
-    //     }
-
-    // }
+    
 }

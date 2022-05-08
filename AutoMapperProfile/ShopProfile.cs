@@ -8,7 +8,7 @@ namespace SimpleWebApi2.AutoMapperProfile
     {
        public ShopProfile()
        {
-           CreateMap<Shop,SeachShopViewModel>()
+           CreateMap<Shop,SeachShopDetailViewModel>()
            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
            .ForMember(dest => dest.shopName, opt => opt.MapFrom(src => src.shopName))
            .ForMember(dest => dest.shopImgUrl, opt => opt.MapFrom(src => src.shopImgUrl))
@@ -21,7 +21,7 @@ namespace SimpleWebApi2.AutoMapperProfile
     {
        public CouponProfile()
        {
-           CreateMap<Coupon,GetCouponStatusViewModel>()
+           CreateMap<Coupon,GetCouponStatusDetailViewModel>()
            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
            .ForMember(dest => dest.shopName, opt => opt.MapFrom(src => src.shopName))
            .ForMember(dest => dest.shopImgUrl, opt => opt.MapFrom(src => src.shopImgUrl))

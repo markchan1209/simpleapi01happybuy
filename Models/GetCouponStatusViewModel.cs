@@ -4,8 +4,14 @@ namespace SimpleWebApi.Models
 {
     public class GetCouponStatusViewModel
     {
-        public int Id { get; set; }
+        public int TotalCount { get; set; }
 
+        public  List<GetCouponStatusDetailViewModel> datas { get; set; }
+        
+    }
+    public class GetCouponStatusDetailViewModel
+    {
+        public int Id { get; set; }
         public string shopName { get; set; }
         public string shopImgUrl { get; set; }
 
