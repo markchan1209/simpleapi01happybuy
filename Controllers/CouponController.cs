@@ -28,8 +28,12 @@ public class CouponController : ControllerBase
     /// <param name="input">status 0 (領取中) 1 (處理中) 2 (領取完成)</param>
     /// <returns></returns>
     [HttpPost("GetCouponStatus")]
-    public async Task<GetCouponStatusViewModel> GetCouponStatus(GetCouponStatusViewInput input)
+    public async Task<ActionResult<GetCouponStatusViewModel>> GetCouponStatus(GetCouponStatusViewInput input)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest("請檢查輸入值");
+        }
         int Page = input.page;
         int PageSize = input.pageSize;
         int Skipindex = Page * PageSize;
@@ -48,7 +52,7 @@ public class CouponController : ControllerBase
             datas = _mapper.Map<List<GetCouponStatusDetailViewModel>>(result)
         };
 
-        return model;
+        return Ok(model);
     }
 
     

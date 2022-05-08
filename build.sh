@@ -1,0 +1,1 @@
+docker build -t aspnetapp .    && heroku container:push web -a simplehappybuydemo    && heroku container:release web -a simplehappybuydemo   
